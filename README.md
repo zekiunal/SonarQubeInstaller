@@ -20,12 +20,10 @@ CentOS 6.x üzerine SonarQube Kurulumu
 - PHPLOC
 - PHP Depend
 
-Install : 
+## Install : 
 
-yum install -y wget
+> yum install -y wget
+> wget https://raw.githubusercontent.com/zekiunal/ShellScripts/master/sonarqube.sh
+> chmod +x ./sonarqube.sh
+> ./sonarqube.sh sonar
 
-wget https://raw.githubusercontent.com/zekiunal/ShellScripts/master/sonarqube.sh
-
-chmod +x ./sonarqube.sh
-
-./sonarqube.sh sonar
