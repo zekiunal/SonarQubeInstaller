@@ -25,6 +25,8 @@ CentOS 6.x üzerine SonarQube Kurulumu
 > yum install -y wget
 
 > wget https://raw.githubusercontent.com/zekiunal/ShellScripts/master/sonarqube.sh
+
 > chmod +x ./sonarqube.sh
+
 > ./sonarqube.sh sonar
 
