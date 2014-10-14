@@ -463,6 +463,12 @@ echo 'sonar.jdbc.timeBetweenEvictionRunsMillis:  30000' >> /opt/sonar/conf/sonar
 echo 'sonar.notifications.delay=60' >> /opt/sonar/conf/sonar.properties
 
 
+mv /etc/localtime /etc/localtime.bak
+ln -s /usr/share/zoneinfo/Asia/Istanbul /etc/localtime
+yum install -y ntp
+sudo ntpdate -b pool.ntp.org
+sudo service ntpd start
+
 service sonar start
 
 source ~/.bash_profile
