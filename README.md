@@ -30,3 +30,7 @@ CentOS 6.x üzerine SonarQube Kurulumu
 
 > ./sonarqube.sh sonar
 
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/zekiunal/sonarqubeinstaller/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
