@@ -1,9 +1,9 @@
 #!/bin/bash
 
 ####################################################################################
-# @package sonarqube 3.7 server initialize
+# @package sonarqube 5.1.2 server initialize
 # @author Zeki Unal <zekiunal@gmail.com>
-# @name ssonarqube37.sh
+# @name ssonarqube5.1.2.sh
 ####################################################################################
 
 if [ ! $1 ]; then
@@ -44,6 +44,38 @@ systemctl start mariadb.service
 systemctl enable httpd.service
 systemctl start httpd.service
 
+
+####################################################################################
+# Install xdebug
+####################################################################################
+
+if [ ! -L /etc/php.d/xdebug.ini ]
+    then
+    	git clone git://github.com/xdebug/xdebug.git
+	cd xdebug
+	phpize
+	./configure --enable-xdebug
+	make
+	cp /xdebug/modules/xdebug.so /usr/lib64/php/modules/xdebug.so
+        rm -f -r /etc/php.d/xdebug.ini
+        echo 'zend_extension=/usr/lib64/php/modules/xdebug.so' >> /etc/php.d/xdebug.ini 
+        echo 'xdebug.auto_trace = "Off"' >> /etc/php.d/xdebug.ini 
+        echo 'xdebug.collect_params = "On"' >> /etc/php.d/xdebug.ini 
+        echo 'xdebug.collect_return = "Off"' >> /etc/php.d/xdebug.ini 
+        echo 'xdebug.trace_format = "0"' >> /etc/php.d/xdebug.ini 
+        echo 'xdebug.trace_options = "1"' >> /etc/php.d/xdebug.ini 
+        echo 'xdebug.trace_output_dir = "/local/tmp/xdebug"' >> /etc/php.d/xdebug.ini 
+        echo 'xdebug.trace_output_name = "timestamp"' >> /etc/php.d/xdebug.ini 
+        echo 'xdebug.profiler_enable = "0"' >> /etc/php.d/xdebug.ini 
+        echo 'xdebug.auto_profile = "1"' >> /etc/php.d/xdebug.ini 
+        echo 'xdebug.auto_profile_mode = "6"' >> /etc/php.d/xdebug.ini 
+        echo 'xdebug.output_dir = "/local/tmp/xdebug"' >> /etc/php.d/xdebug.ini 
+        echo 'xdebug.profiler_output_dir = "/local/tmp/xdebug"' >> /etc/php.d/xdebug.ini 
+        echo 'xdebug.profiler_output_name = "timestamp"' >> /etc/php.d/xdebug.ini 
+        cd /
+        rm -fr xdebug
+fi
+
 git clone git://github.com/phalcon/cphalcon.git
 cd cphalcon/build
 sudo ./install 
@@ -52,7 +84,6 @@ echo "extension=phalcon.so" >> /etc/php.d/phalcon.ini
 echo 'date.timezone = "Europe/Istanbul"' >> /etc/php.d/phalcon.ini 
 
 systemctl restart httpd.service        
-
 
 	####################################################################################
 	# MySQL Secure Installation
@@ -102,36 +133,6 @@ EOF
 
 fi
 
-####################################################################################
-# Install xdebug
-####################################################################################
-
-if [ ! -L /etc/php.d/xdebug.ini ]
-    then
-    	git clone git://github.com/xdebug/xdebug.git
-	cd xdebug
-	phpize
-	./configure --enable-xdebug
-	make
-	cp /xdebug/modules/xdebug.so /usr/lib64/php/modules/xdebug.so
-        rm -f -r /etc/php.d/xdebug.ini
-        echo 'zend_extension=/usr/lib64/php/modules/xdebug.so' >> /etc/php.d/xdebug.ini 
-        echo 'xdebug.auto_trace = "Off"' >> /etc/php.d/xdebug.ini 
-        echo 'xdebug.collect_params = "On"' >> /etc/php.d/xdebug.ini 
-        echo 'xdebug.collect_return = "Off"' >> /etc/php.d/xdebug.ini 
-        echo 'xdebug.trace_format = "0"' >> /etc/php.d/xdebug.ini 
-        echo 'xdebug.trace_options = "1"' >> /etc/php.d/xdebug.ini 
-        echo 'xdebug.trace_output_dir = "/local/tmp/xdebug"' >> /etc/php.d/xdebug.ini 
-        echo 'xdebug.trace_output_name = "timestamp"' >> /etc/php.d/xdebug.ini 
-        echo 'xdebug.profiler_enable = "0"' >> /etc/php.d/xdebug.ini 
-        echo 'xdebug.auto_profile = "1"' >> /etc/php.d/xdebug.ini 
-        echo 'xdebug.auto_profile_mode = "6"' >> /etc/php.d/xdebug.ini 
-        echo 'xdebug.output_dir = "/local/tmp/xdebug"' >> /etc/php.d/xdebug.ini 
-        echo 'xdebug.profiler_output_dir = "/local/tmp/xdebug"' >> /etc/php.d/xdebug.ini 
-        echo 'xdebug.profiler_output_name = "timestamp"' >> /etc/php.d/xdebug.ini 
-        cd /
-        rm -fr xdebug
-fi
 
 ####################################################################################
 # Update pear
