@@ -206,11 +206,11 @@ service httpd restart
 # Install Maven 3.2.1 Install
 ####################################################################################
 # Download Maven
-wget http://ftp.itu.edu.tr/Mirror/Apache/maven/maven-3/3.2.1/binaries/apache-maven-3.2.1-bin.tar.gz
+wget http://ftp.mku.edu.tr/apache-dist//maven/maven-3/3.1.1/binaries/apache-maven-3.1.1-bin.tar.gz
 # Unzip 
-tar -zxvf apache-maven-3.2.1-bin.tar.gz
+tar -zxvf apache-maven-3.1.1-bin.tar.gz
 # Rename and move folder to /user/local
-mv apache-maven-3.2.1 /usr/local/maven
+mv apache-maven-3.1.1 /usr/local/maven
 echo "export M2_HOME=/usr/local/maven" >> /root/.bashrc
 echo "export PATH=\${M2_HOME}/bin:\${PATH}" >> /root/.bashrc
 
@@ -220,11 +220,11 @@ echo "export PATH=\${M2_HOME}/bin:\${PATH}" >> /root/.bashrc
 ####################################################################################
 if [ ! -L /etc/init.d/sonar ]
     then
-    	wget http://dist.sonar.codehaus.org/sonar-3.7.4.zip
-	unzip sonar-3.7.4.zip
-	rm -f sonar-3.7.4.zip
-	mv sonar-3.7.4 /usr/local
-	ln -s /usr/local/sonar-3.7.4/ /usr/local/sonar
+    	wget https://sonarsource.bintray.com/Distribution/sonarqube/sonarqube-5.1.2.zip
+	unzip sonarqube-5.1.2.zip
+	rm -f sonarqube-5.1.2.zip
+	mv sonarqube-5.1.2 /usr/local
+	ln -s /usr/local/sonarqube-5.1.2/ /usr/local/sonar
 	cp /usr/local/sonar/bin/linux-x86-64/sonar.sh /etc/init.d/sonar
 	
 	sed -i "2i SONAR_HOME=/usr/local/sonar/" /etc/init.d/sonar
