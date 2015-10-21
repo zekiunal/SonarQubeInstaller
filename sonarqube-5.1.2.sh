@@ -129,9 +129,8 @@ GRANT ALL PRIVILEGES ON sonar.* TO 'sonar'@'localhost' IDENTIFIED BY 'sonar';
 FLUSH PRIVILEGES;
 EOF
 	
-	service mysqld restart
+	systemctl start mariadb.service
 
-fi
 
 
 ####################################################################################
